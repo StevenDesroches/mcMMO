@@ -322,6 +322,8 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
                         writer.append(profile.getSkillXpLevel(SkillType.ALCHEMY)).append(":");
                         writer.append(uuid != null ? uuid.toString() : "NULL").append(":");
                         writer.append(profile.getScoreboardTipsShown()).append(":");
+                        writer.append(profile.getSkillLevel(SkillType.ENCHANTING)).append(":");
+                        writer.append(profile.getSkillXpLevel(SkillType.ENCHANTING)).append(":");
                         writer.append("\r\n");
                     }
                 }
@@ -429,6 +431,8 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
                 out.append("0:"); // AlchemyXp
                 out.append(uuid != null ? uuid.toString() : "NULL").append(":"); // UUID
                 out.append("0:"); // Scoreboard tips shown
+                out.append("0:"); // Enchanting
+                out.append("0:"); // EnchantingXp
                 // Add more in the same format as the line above
 
                 out.newLine();
@@ -750,6 +754,7 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
         List<PlayerStat> taming = new ArrayList<PlayerStat>();
         List<PlayerStat> fishing = new ArrayList<PlayerStat>();
         List<PlayerStat> alchemy = new ArrayList<PlayerStat>();
+        List<PlayerStat> enchanting = new ArrayList<PlayerStat>();
 
         BufferedReader in = null;
         String playerName = null;
@@ -779,6 +784,7 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
                     powerLevel += putStat(taming, playerName, skills.get(SkillType.TAMING));
                     powerLevel += putStat(unarmed, playerName, skills.get(SkillType.UNARMED));
                     powerLevel += putStat(woodcutting, playerName, skills.get(SkillType.WOODCUTTING));
+                    powerLevel += putStat(enchanting, playerName, skills.get(SkillType.ENCHANTING));
 
                     putStat(powerLevels, playerName, powerLevel);
                 }
@@ -813,6 +819,7 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
         Collections.sort(taming, c);
         Collections.sort(fishing, c);
         Collections.sort(alchemy, c);
+        Collections.sort(enchanting, c);
         Collections.sort(powerLevels, c);
 
         playerStatHash.put(SkillType.MINING, mining);
@@ -828,6 +835,7 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
         playerStatHash.put(SkillType.TAMING, taming);
         playerStatHash.put(SkillType.FISHING, fishing);
         playerStatHash.put(SkillType.ALCHEMY, alchemy);
+        playerStatHash.put(SkillType.ENCHANTING, enchanting);
     }
 
     /**
@@ -994,6 +1002,16 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
                                 oldVersion = "1.5.02";
                             }
                         }
+                        if (character.length <= 43) {
+                            // Addition of Enchanting
+                            // Version 1.5.08
+                            character = Arrays.copyOf(character, character.length + 2);
+                            character[character.length - 1] = "0";
+                            character[character.length - 2] = "0";
+                            if (oldVersion == null) {
+                                oldVersion = "1.5.08";
+                            }
+                        }
 
                         boolean corrupted = false;
 
@@ -1084,6 +1102,7 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
             mcMMO.getUpgradeManager().setUpgradeCompleted(UpgradeType.DROP_SQL_PARTY_NAMES);
             mcMMO.getUpgradeManager().setUpgradeCompleted(UpgradeType.DROP_SPOUT);
             mcMMO.getUpgradeManager().setUpgradeCompleted(UpgradeType.ADD_ALCHEMY);
+            mcMMO.getUpgradeManager().setUpgradeCompleted(UpgradeType.ADD_ENCHANTING);
             return;
         }
 
@@ -1150,6 +1169,7 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
         skillsXp.put(SkillType.ACROBATICS, (float) Integer.valueOf(character[EXP_ACROBATICS]));
         skillsXp.put(SkillType.FISHING, (float) Integer.valueOf(character[EXP_FISHING]));
         skillsXp.put(SkillType.ALCHEMY, (float) Integer.valueOf(character[EXP_ALCHEMY]));
+        skillsXp.put(SkillType.ENCHANTING, (float) Integer.valueOf(character[EXP_ENCHANTING]));
 
         // Taming - Unused
         skillsDATS.put(AbilityType.SUPER_BREAKER, Integer.valueOf(character[COOLDOWN_SUPER_BREAKER]));
@@ -1205,6 +1225,7 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
         skills.put(SkillType.ACROBATICS, Integer.valueOf(character[SKILLS_ACROBATICS]));
         skills.put(SkillType.FISHING, Integer.valueOf(character[SKILLS_FISHING]));
         skills.put(SkillType.ALCHEMY, Integer.valueOf(character[SKILLS_ALCHEMY]));
+        skills.put(SkillType.ENCHANTING, Integer.valueOf(character[SKILLS_ENCHANTING]));
 
         return skills;
     }
@@ -1244,12 +1265,14 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
                 return SKILLS_UNARMED;
             case WOODCUTTING:
                 return SKILLS_WOODCUTTING;
+            case ENCHANTING:
+                return SKILLS_ENCHANTING;
             default:
                 throw new RuntimeException("Primary Skills only");
-            
+
         }
     }
-    
+
     public static int USERNAME = 0;
     public static int SKILLS_MINING = 1;
     public static int EXP_MINING = 4;
@@ -1289,6 +1312,9 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
     public static int EXP_ALCHEMY = 40;
     public static int UUID_INDEX = 41;
     public static int SCOREBOARD_TIPS = 42;
+    public static int SKILLS_ENCHANTING = 43;
+    public static int EXP_ENCHANTING = 44;
+
 
     public void resetMobHealthSettings() {
         BufferedReader in = null;
@@ -1307,9 +1333,9 @@ public final class FlatfileDatabaseManager implements DatabaseManager {
                         continue;
                     }
                     String[] character = line.split(":");
-                    
+
                     character[HEALTHBAR] = Config.getInstance().getMobHealthbarDefault().toString();
-                    
+
                     line = new StringBuilder(org.apache.commons.lang.StringUtils.join(character, ":")).append(":").toString();
 
                     writer.append(line).append("\r\n");

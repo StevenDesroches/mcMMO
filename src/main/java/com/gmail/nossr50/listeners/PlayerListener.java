@@ -2,9 +2,9 @@ package com.gmail.nossr50.listeners;
 
 import java.util.HashSet;
 
+import com.gmail.nossr50.skills.enchanting.EnchantingManager;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
@@ -705,5 +706,14 @@ public class PlayerListener implements Listener {
         }
 
         mcMMO.getHolidayManager().handleStatisticEvent(event);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPlayerEnchantItemEvent(EnchantItemEvent event) {
+        Player player = event.getEnchanter();
+        EnchantingManager enchantingManager = UserManager.getPlayer(player).getEnchantingManager();
+        //event.getExpLevelCost();
+        enchantingManager.handleEnchant(event.getExpLevelCost(), event.getEnchantsToAdd(), event.getItem(), player.getInventory().getItemInMainHand());
+
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.gmail.nossr50.skills.enchanting.EnchantingManager;
 import org.bukkit.Color;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -50,7 +51,8 @@ public enum SkillType {
     SWORDS(SwordsManager.class, Color.fromRGB(178, 34, 34), AbilityType.SERRATED_STRIKES, ToolType.SWORD, ImmutableList.of(SecondaryAbility.BLEED, SecondaryAbility.COUNTER)),
     TAMING(TamingManager.class, Color.PURPLE, ImmutableList.of(SecondaryAbility.BEAST_LORE, SecondaryAbility.CALL_OF_THE_WILD, SecondaryAbility.ENVIROMENTALLY_AWARE, SecondaryAbility.FAST_FOOD, SecondaryAbility.GORE, SecondaryAbility.HOLY_HOUND, SecondaryAbility.SHARPENED_CLAWS, SecondaryAbility.SHOCK_PROOF, SecondaryAbility.THICK_FUR, SecondaryAbility.PUMMEL)),
     UNARMED(UnarmedManager.class, Color.BLACK, AbilityType.BERSERK, ToolType.FISTS, ImmutableList.of(SecondaryAbility.BLOCK_CRACKER, SecondaryAbility.DEFLECT, SecondaryAbility.DISARM, SecondaryAbility.IRON_ARM, SecondaryAbility.IRON_GRIP)),
-    WOODCUTTING(WoodcuttingManager.class, Color.OLIVE, AbilityType.TREE_FELLER, ToolType.AXE, ImmutableList.of(SecondaryAbility.LEAF_BLOWER, SecondaryAbility.WOODCUTTING_DOUBLE_DROPS));
+    WOODCUTTING(WoodcuttingManager.class, Color.OLIVE, AbilityType.TREE_FELLER, ToolType.AXE, ImmutableList.of(SecondaryAbility.LEAF_BLOWER, SecondaryAbility.WOODCUTTING_DOUBLE_DROPS)),
+    ENCHANTING(EnchantingManager.class, Color.LIME, ImmutableList.of(SecondaryAbility.PRESTIDIGITATION, SecondaryAbility.ARCANE_IMBUEMENT, SecondaryAbility.OVERWHELMING_MAGICK, SecondaryAbility.CONCENTRATION));
 
     private Class<? extends SkillManager> managerClass;
     private Color runescapeColor;
@@ -65,7 +67,7 @@ public enum SkillType {
 
     public static final List<SkillType> COMBAT_SKILLS = ImmutableList.of(ARCHERY, AXES, SWORDS, TAMING, UNARMED);
     public static final List<SkillType> GATHERING_SKILLS = ImmutableList.of(EXCAVATION, FISHING, HERBALISM, MINING, WOODCUTTING);
-    public static final List<SkillType> MISC_SKILLS = ImmutableList.of(ACROBATICS, ALCHEMY, REPAIR, SALVAGE, SMELTING);
+    public static final List<SkillType> MISC_SKILLS = ImmutableList.of(ACROBATICS, ALCHEMY, REPAIR, SALVAGE, SMELTING, ENCHANTING);
 
     static {
         List<SkillType> childSkills = new ArrayList<SkillType>();

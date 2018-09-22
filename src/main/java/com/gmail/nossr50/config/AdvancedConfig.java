@@ -679,6 +679,23 @@ public class AdvancedConfig extends AutoUpdateConfigLoader {
             reason.add("Kraken.Attack_Damage should be at least 1!");
         }
 
+        /* ENCHANTING */
+        if(getPrestidigitationMaxBonus() < 1){
+            reason.add("Skills.Enchanting.Prestidigitation.MaxBonus should be at least 1!");
+        }
+        if(getPrestidigitationMaxBonusLevel() < 1){
+            reason.add("Skills.Enchanting.Prestidigitation.MaxBonusLevel should be at least 1!");
+        }
+        if (getArcaneImbuementUnlockLevel() < 1){
+            reason.add("Skills.Enchanting.ArcaneImbument.UnlockLevel should be at least 1!");
+        }
+        if(getArcaneImbuementMaxBonus() < 1){
+            reason.add("Skills.Enchanting.ArcaneImbument.MaxBonus should be at least 1!");
+        }
+        if(getArcaneImbuementMaxBonusLevel() < 1){
+            reason.add("Skills.Enchanting.ArcaneImbument.MaxBonusLevel should be at least 1!");
+        }
+
         return noErrorsInConfig(reason);
     }
 
@@ -845,6 +862,15 @@ public class AdvancedConfig extends AutoUpdateConfigLoader {
 
     /* WOODCUTTING */
     public int getLeafBlowUnlockLevel() { return config.getInt("Skills.Woodcutting.LeafBlower.UnlockLevel", 100); }
+
+    /* ENCHANTING */
+    public int getPrestidigitationMaxBonus() { return config.getInt("Skills.Enchanting.Prestidigitation.MaxBonus", 50); }
+    public int getPrestidigitationMaxBonusLevel() { return config.getInt("Skills.Enchanting.Prestidigitation.MaxBonusLevel", 1000); }
+    public int getArcaneImbuementUnlockLevel() { return config.getInt("Skills.Enchanting.ArcaneImbuement.UnlockLevel", 300);}
+    public int getArcaneImbuementMaxBonus() { return config.getInt("Skills.Enchanting.ArcaneImbuement.MaxBonus", 40); }
+    public int getArcaneImbuementMaxBonusLevel() { return config.getInt("Skills.Enchanting.ArcaneImbuement.MaxBonusLevel", 1000); }
+    public int getOverwhelmingMagickUnlockLevel() { return config.getInt("Skills.Enchanting.OverwhelmingMagick.UnlockLevel", 550); }
+    public int getConcentrationUnlockLevel() { return config.getInt("Skills.Enchanting.Concentration.UnlockLevel", 800); }
 
     /* KRAKEN STUFF */
     public boolean getKrakenEnabled() { return config.getBoolean("Kraken.Enabled", true); }

@@ -149,6 +149,7 @@ public class ExperienceConfig extends AutoUpdateConfigLoader {
     public FormulaType getFormulaType() { return FormulaType.getFormulaType(config.getString("Experience_Formula.Curve")); }
     public boolean getCumulativeCurveEnabled() { return config.getBoolean("Experience_Formula.Cumulative_Curve", false); }
 
+
     /* Curve values */
     public double getMultiplier(FormulaType type) { return config.getDouble("Experience_Formula." + StringUtils.getCapitalized(type.toString()) + "_Values.multiplier"); }
     public int getBase(FormulaType type) { return config.getInt("Experience_Formula." + StringUtils.getCapitalized(type.toString()) + "_Values.base"); }
@@ -230,6 +231,9 @@ public class ExperienceConfig extends AutoUpdateConfigLoader {
     /* Repair */
     public double getRepairXPBase() { return config.getDouble("Experience.Repair.Base", 1000.0); }
     public double getRepairXP(MaterialType repairMaterialType) { return config.getDouble("Experience.Repair." + StringUtils.getCapitalized(repairMaterialType.toString())); }
+
+    /* Enchanting */
+    public double getEnchantingXPBase() { return config.getDouble("Experience.Enchanting.Base", 100); }
 
     /* Taming */
     public int getTamingXP(EntityType type)

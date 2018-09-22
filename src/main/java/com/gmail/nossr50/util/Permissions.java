@@ -191,6 +191,9 @@ public final class Permissions {
     /* WOODCUTTING */
     public static boolean treeFeller(Permissible permissible) { return permissible.hasPermission("mcmmo.ability.woodcutting.treefeller"); }
 
+    /* ENCHANTING */
+    public static boolean prestidigitation(Permissible permissible) { return permissible.hasPermission("mcmmo.ability.enchanting.prestidigitation"); }
+
     /*
      * PARTY
      */

@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.gmail.nossr50.runnables.skills.BleedTimerTask;
+import com.gmail.nossr50.skills.enchanting.EnchantingManager;
 import com.gmail.nossr50.util.player.UserManager;
 import com.gmail.nossr50.util.scoreboards.ScoreboardManager;
 import org.bukkit.GameMode;
@@ -190,6 +191,10 @@ public class McMMOPlayer {
 
     public WoodcuttingManager getWoodcuttingManager() {
         return (WoodcuttingManager) skillManagers.get(SkillType.WOODCUTTING);
+    }
+
+    public EnchantingManager getEnchantingManager() {
+        return (EnchantingManager) skillManagers.get(SkillType.ENCHANTING);
     }
 
     /*
@@ -405,7 +410,7 @@ public class McMMOPlayer {
     public void beginXpGain(SkillType skill, float xp, XPGainReason xpGainReason) {
         Validate.isTrue(xp >= 0.0, "XP gained should be greater than or equal to zero.");
 
-        if (xp <= 0.0) {
+        if (xp <= 0.0 ) {
             return;
         }
 
@@ -455,6 +460,7 @@ public class McMMOPlayer {
      * @param xp Experience amount to add
      */
     public void applyXpGain(SkillType skillType, float xp, XPGainReason xpGainReason) {
+
         if (!skillType.getPermissions(player)) {
             return;
         }
@@ -472,6 +478,7 @@ public class McMMOPlayer {
         if (!EventUtils.handleXpGainEvent(player, skillType, xp, xpGainReason)) {
             return;
         }
+
 
         isUsingUnarmed = (skillType == SkillType.UNARMED);
         checkXp(skillType, xpGainReason);
@@ -491,15 +498,18 @@ public class McMMOPlayer {
         float xpRemoved = 0;
 
         while (getSkillXpLevelRaw(skillType) >= getXpToLevel(skillType)) {
+
             if (hasReachedLevelCap(skillType)) {
+
                 setSkillXpLevel(skillType, 0);
+
                 break;
             }
 
             xpRemoved += profile.levelUp(skillType);
             levelsGained++;
-        }
 
+        }
         if (!EventUtils.handleLevelChangeEvent(player, skillType, levelsGained, xpRemoved, true, xpGainReason)) {
             return;
         }

@@ -2,7 +2,10 @@ package com.gmail.nossr50.util.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import com.gmail.nossr50.commands.skills.*;
+import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 
 import com.gmail.nossr50.mcMMO;
@@ -36,21 +39,6 @@ import com.gmail.nossr50.commands.player.MccooldownCommand;
 import com.gmail.nossr50.commands.player.McrankCommand;
 import com.gmail.nossr50.commands.player.McstatsCommand;
 import com.gmail.nossr50.commands.player.MctopCommand;
-import com.gmail.nossr50.commands.skills.AcrobaticsCommand;
-import com.gmail.nossr50.commands.skills.AlchemyCommand;
-import com.gmail.nossr50.commands.skills.ArcheryCommand;
-import com.gmail.nossr50.commands.skills.AxesCommand;
-import com.gmail.nossr50.commands.skills.ExcavationCommand;
-import com.gmail.nossr50.commands.skills.FishingCommand;
-import com.gmail.nossr50.commands.skills.HerbalismCommand;
-import com.gmail.nossr50.commands.skills.MiningCommand;
-import com.gmail.nossr50.commands.skills.RepairCommand;
-import com.gmail.nossr50.commands.skills.SalvageCommand;
-import com.gmail.nossr50.commands.skills.SmeltingCommand;
-import com.gmail.nossr50.commands.skills.SwordsCommand;
-import com.gmail.nossr50.commands.skills.TamingCommand;
-import com.gmail.nossr50.commands.skills.UnarmedCommand;
-import com.gmail.nossr50.commands.skills.WoodcuttingCommand;
 import com.gmail.nossr50.config.Config;
 import com.gmail.nossr50.datatypes.skills.SkillType;
 import com.gmail.nossr50.locale.LocaleLoader;
@@ -65,7 +53,9 @@ public final class CommandRegistrationManager {
         for (SkillType skill : SkillType.values()) {
             String commandName = skill.toString().toLowerCase();
             String localizedName = skill.getName().toLowerCase();
-
+            Logger log = Bukkit.getLogger();
+            log.info(skill.toString());
+            log.info(skill.getName());
             PluginCommand command;
 
             command = mcMMO.p.getCommand(commandName);
@@ -134,6 +124,10 @@ public final class CommandRegistrationManager {
 
                 case WOODCUTTING:
                     command.setExecutor(new WoodcuttingCommand());
+                    break;
+
+                case ENCHANTING:
+                    command.setExecutor(new EnchantingCommand());
                     break;
 
                 default:
@@ -421,6 +415,15 @@ public final class CommandRegistrationManager {
     }
 
     private static void registerMcImportCommand() {
+        PluginCommand command = mcMMO.p.getCommand("mcimport");
+        command.setDescription("Import mod config files"); //TODO: Localize
+        command.setPermission("mcmmo.commands.mcimport");
+        command.setPermissionMessage(permissionsMessage);
+        command.setUsage(LocaleLoader.getString("Commands.Usage.0", "mcimport"));
+        command.setExecutor(new McImportCommand());
+    }
+
+    private static void EnchantingModeCommand() {
         PluginCommand command = mcMMO.p.getCommand("mcimport");
         command.setDescription("Import mod config files"); //TODO: Localize
         command.setPermission("mcmmo.commands.mcimport");

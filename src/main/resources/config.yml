@@ -176,6 +176,7 @@ Hardcore:
             Taming: false
             Unarmed: false
             Woodcutting: false
+            Enchanting: false
     Vampirism:
         Leech_Percentage: 5.0
         Level_Threshold: 0
@@ -193,6 +194,7 @@ Hardcore:
             Taming: false
             Unarmed: false
             Woodcutting: false
+            Enchanting: false
 
 #
 #  Settings for SMP Mods
@@ -401,6 +403,8 @@ Skills:
         Items_As_Unarmed: false
     Woodcutting:
         Tree_Feller_Sounds: true
+        Level_Cap: 0
+    Enchanting:
         Level_Cap: 0
 
 #

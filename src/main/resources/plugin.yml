@@ -94,6 +94,8 @@ commands:
         description: Detailed mcMMO skill info
     salvage:
         description: Detailed mcMMO skill info
+    enchanting:
+        description: Detailed mcMMO skill info
     adminchat:
         aliases: [ac, a]
         description: Toggle Admin chat or send admin chat messages
@@ -163,6 +165,7 @@ permissions:
             mcmmo.ability.taming.all: true
             mcmmo.ability.unarmed.all: true
             mcmmo.ability.woodcutting.all: true
+            mcmmo.ability.enchanting.all: true
     mcmmo.ability.acrobatics.*:
         default: false
         description: Allows access to all Acrobatics abilities
@@ -627,6 +630,26 @@ permissions:
         description: Allows access to Leaf Blower ability
     mcmmo.ability.woodcutting.treefeller:
         description: Allows access to Tree Feller ability
+    mcmmo.ability.enchanting.*:
+        default: false
+        description: Allows access to all Enchanting abilities
+        children:
+            mcmmo.ability.enchanting.all: true
+    mcmmo.ability.enchanting.all:
+        description: Allows acces to all Enchanting abilities
+        children:
+            mcmmo.ability.enchanting.prestidigitation: true
+            mcmmo.ability.enchanting.arcaneimbuement: true
+            mcmmo.ability.enchanting.overwhelmingmagick: true
+            mcmmo.ability.enchanting.concentration: true
+    mcmmo.ability.enchanting.prestidigitation:
+        description: Allows access to Prestidigitation ability
+    mcmmo.ability.enchanting.arcaneimbuement:
+        description: Allows access to the Arcane Imbuement ability
+    mcmmo.ability.enchanting.overwhelmingmagick:
+        description: Allows access to the Overwhelming Magick ability
+    mcmmo.ability.enchanting.concentration:
+        description: Allows access to the Concentration ability
     mcmmo.admin:
         default: false
         description: Implies access to everything in mcMMO
@@ -1203,6 +1226,8 @@ permissions:
         description: Allows access to the vampirism command to toggle vampirism on/off
     mcmmo.commands.woodcutting:
         description: Allows access to the woodcutting command
+    mcmmo.commands.enchanting:
+        description: Allows access to the enchanting command
     mcmmo.commands.xprate.*:
         default: false
         description: Implies access to all mcmmo.commands.xprate permissions
@@ -1924,6 +1949,7 @@ permissions:
             mcmmo.skills.taming: true
             mcmmo.skills.unarmed: true
             mcmmo.skills.woodcutting: true
+            mcmmo.skills.enchanting: true
     mcmmo.skills.acrobatics:
         description: Allows access to the Acrobatics skill
         children:
@@ -1999,6 +2025,11 @@ permissions:
         children:
             mcmmo.ability.woodcutting.all: true
             mcmmo.commands.woodcutting: true
+    mcmmo.skills.enchanting:
+      description: Allows access to the Enchanting skill
+      children:
+            mcmmo.ability.enchanting.all: true
+            mcmmo.commands.enchanting: true
     mcmmo.showversion:
         default: true
         description: Show mcMMO version number in /mcmmo and motd

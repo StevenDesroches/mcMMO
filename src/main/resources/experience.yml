@@ -55,6 +55,7 @@ Experience_Formula:
         Repair: 1.0
         Fishing: 1.0
         Alchemy: 1.0
+        Enchanting: 1.0
 
     # XP earned by players with the permission mcmmo.perks.xp.customboost.<skillname> will get multiplied
     # with 1.25 by default, resulting in a 25% XP boost
@@ -83,6 +84,7 @@ Diminished_Returns:
         Repair: 20000
         Fishing: 20000
         Alchemy: 20000
+        Enchanting: 20000
 
     Time_Interval: 10
 
@@ -289,3 +291,5 @@ Experience:
             Snowman: 0.0
             Parrot: 1.0
             Illusioner: 3.0
+    Enchanting:
+        base: 100

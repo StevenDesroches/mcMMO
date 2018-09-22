@@ -8,6 +8,7 @@ public enum UpgradeType {
     DROP_SQL_PARTY_NAMES,
     DROP_SPOUT,
     ADD_ALCHEMY,
+    ADD_ENCHANTING,
     ADD_UUIDS,
     ADD_UUIDS_PARTY,
     ADD_SCOREBOARD_TIPS,
